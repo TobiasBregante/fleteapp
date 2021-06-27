@@ -21,7 +21,6 @@ const Layout = ({ titlePage, children }) => {
                 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
                 crossOrigin="anonymous"
             />
-
         </Head>
         <main className="container-fluid">
             <Header/>
