@@ -1,21 +1,21 @@
 const ActionsFast = () => {
     const Moving = () => {
         const questionForWhatsApp = {
-            number: 5491124767008,
+            number: 5491121795837,
             textSend: 'Hola! Necesito un flete. ¿Estás disponible?'
         }
         window.open(`https://api.whatsapp.com/send?phone=${questionForWhatsApp.number}&text=${questionForWhatsApp.textSend}`, '_blank')
     },
     Translate = () => {
         const questionForWhatsApp = {
-            number: 5491124767008,
+            number: 5491121795837,
             textSend: 'Hola! Necesito un traslado. ¿Estás disponible?'
         }
         window.open(`https://api.whatsapp.com/send?phone=${questionForWhatsApp.number}&text=${questionForWhatsApp.textSend}`, '_blank')
     },
     Delivery = () => {
         const questionForWhatsApp = {
-            number: 5491124767008,
+            number: 5491121795837,
             textSend: 'Hola! Necesito un delivery. ¿Estás disponible?'
         }
         window.open(`https://api.whatsapp.com/send?phone=${questionForWhatsApp.number}&text=${questionForWhatsApp.textSend}`, '_blank')

@@ -11,7 +11,7 @@ const HelpDesk = () => {
         const questionForWhatsApp = {
             fullname: fullname,
             msj: msj,
-            number: 5491124767008,
+            number: 5491121795837,
             textSend: `${msj}. Mi nombre es ${fullname}`
         }
         window.open(`https://api.whatsapp.com/send?phone=${questionForWhatsApp.number}&text=${questionForWhatsApp.textSend}`, '_blank')
