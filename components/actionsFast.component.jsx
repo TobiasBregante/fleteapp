@@ -19,6 +19,13 @@ const ActionsFast = () => {
             textSend: 'Hola! Necesito un delivery. ¿Estás disponible?'
         }
         window.open(`https://api.whatsapp.com/send?phone=${questionForWhatsApp.number}&text=${questionForWhatsApp.textSend}`, '_blank')
+    },
+    Reparts = () => {
+        const questionForWhatsApp = {
+            number: 5491121795837,
+            textSend: 'Hola! Necesito un reparto. ¿Estás disponible?'
+        }
+        window.open(`https://api.whatsapp.com/send?phone=${questionForWhatsApp.number}&text=${questionForWhatsApp.textSend}`, '_blank')
     }
 
     return(
@@ -39,13 +46,16 @@ const ActionsFast = () => {
             </p>
             <ul className='col-12'>
                 <li>
-                    <input onClick={Delivery} type='button' value='Delivery' className='btn btn-warning'/>
+                    <input onClick={Moving} type='button' value='Minifletes' className='btn btn-primary'/>
                 </li>
                 <li>
-                    <input onClick={Moving} type='button' value='Flete' className='btn btn-primary'/>
+                    <input onClick={Reparts} type='button' value='Repartos' className='btn btn-danger'/>
                 </li>
                 <li>
-                    <input onClick={Translate} type='button' value='Traslado' className='btn btn-info'/>
+                    <input onClick={Delivery} type='button' value='Deliverys' className='btn btn-warning'/>
+                </li>
+                <li>
+                    <input onClick={Translate} type='button' value='Traslados' className='btn btn-info'/>
                 </li>
             </ul>
         </article>

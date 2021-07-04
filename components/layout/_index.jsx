@@ -13,7 +13,6 @@ const Layout = ({ titlePage, children }) => {
             <title>{ titlePage }</title>
             <meta name="description" content="Llegó la app de delivery y fletes más popular a la argentina. Hacé tu delivery en un instante" />
             <meta name="title" content="Hacé tu pedido | FleteApp"/>
-
             <meta property="og:type" content="website"/>
             <meta property="og:url" content="https://fleteapp.herokuapp.com/"/>
             <meta property="og:title" content="Hacé tu pedido | FleteApp"/>

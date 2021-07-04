@@ -109,17 +109,18 @@
         font-size: 1.3em;
     }
     .banner{
-        padding: 3%;
+        padding: 0;
         height: 190px;
     }
     .contain-titles-banner{
-        background-color: transparent;
+        width: 100%;
+        height: 100%;
         padding: 4%;
     }
     .actionsFast{
         padding: 5% 1% 5% 1%;
         line-height: 2;
-        height: 210px;
+        height: 225px;
     }
     .actionsFastTitle{
         font-size: 1.5em
