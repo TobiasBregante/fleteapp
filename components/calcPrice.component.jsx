@@ -3,9 +3,11 @@ import { useState } from "react"
 const CalcPrice = () => {
     const [frmTranslatesOrDelivery, setFrmTranslatesOrDelivery] = useState(false)
     const [frmMoving, setFrmMoving] = useState(false)
-    const [boxAmountPerBox, setBoxAmountPerBox] = useState(350)
-    const [deliveryAmountPerKm, setDeliveryAmountPerKm] = useState(250)
+    const [boxAmountPerBox, setBoxAmountPerBox] = useState(270)
+    const [deliveryAmountPerKm, setDeliveryAmountPerKm] = useState(660) // CABA
+    const [deliveryAmountPerKmGBA, setDeliveryAmountPerKmGBA] = useState(760) // GBA
     const [resultCalc, setResultCalc] = useState(0)
+    const [resultCalcGBA, setResultCalcGBA] = useState(0)
     const [viewResult, setViewResult] = useState(false)
 
     const onChangeSelectOption = e => {
@@ -31,8 +33,10 @@ const CalcPrice = () => {
     },
     handlerCalcDelivery = e => {
         const resultCalc = e.target.value * deliveryAmountPerKm
+        const resultCalcGBA = e.target.value * deliveryAmountPerKmGBA
         e.target.value.length < 1 && setViewResult(false)
         setResultCalc(resultCalc)
+        setResultCalcGBA(resultCalcGBA)
     },
     onSubmit = e => {
         e.preventDefault()
@@ -55,18 +59,21 @@ const CalcPrice = () => {
             <select onChange={onChangeSelectOption} className='form-control mb-3'>
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option value="delivery">Traslados y delivery</option>
-                <option value="moving">Fletes</option>
+                <option value="moving">Mini Fletes</option>
             </select>
             {
                 frmTranslatesOrDelivery && (
                     <>
                     <form onSubmit={onSubmit}>
                         <small>Esto aplica a traslados y delivery</small>
-                        <span className="calcTitle badge bg-primary">${deliveryAmountPerKm} por Km</span>
-                        <input onChange={handlerCalcDelivery} className='form-control' type="number" name="km" placeholder='Ingrese los Km'/>
+                        <span className="calcTitle badge bg-primary">${deliveryAmountPerKm} por paquete en CABA</span>
+                    <span className='calcTitle badge bg-primary'>${deliveryAmountPerKmGBA} por paquete en GBA</span>
+                        <input onChange={handlerCalcDelivery} className='form-control' type="number" name="km" placeholder='Ingrese cant. paquetes'/>
                         <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
                     </form>
-                    {viewResult && <p className='resultPrice text-primary'>${resultCalc} a pagar en efectivo o débito</p>}
+                    {viewResult && <p className='resultPrice text-primary'>${resultCalc} (CABA)</p>}
+                    {viewResult && <p className='resultPrice text-primary'>${resultCalcGBA} (GBA)</p>}
+                    {viewResult && <p className='resultPrice text-primary'>a pagar en efectivo o débito</p>}
                     </>
                 )
             }
@@ -74,9 +81,9 @@ const CalcPrice = () => {
                 frmMoving && (
                     <>
                     <form onSubmit={onSubmit}>
-                        <small>Esto aplica a fletes</small>
-                        <span className="calcTitle badge bg-primary">${boxAmountPerBox} por caja</span>
-                        <input onChange={handlerCalcBoxAmount} className='form-control' type="number" name="boxs" placeholder='Ingrese cant. cajas'/>
+                        <small>Esto aplica a mini fletes</small>
+                        <span className="calcTitle badge bg-primary">${boxAmountPerBox} por km</span>
+                        <input onChange={handlerCalcBoxAmount} className='form-control' type="number" name="boxs" placeholder='Ingrese los km'/>
                         <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
                     </form>
                     {viewResult && <p className='resultPrice text-primary'>${resultCalc} a pagar en efectivo o débito</p>}
