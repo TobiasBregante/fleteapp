@@ -1,11 +1,13 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 const CalcPrice = () => {
     const [frmTranslatesOrDelivery, setFrmTranslatesOrDelivery] = useState(false)
     const [frmMoving, setFrmMoving] = useState(false)
-    const [boxAmountPerBox, setBoxAmountPerBox] = useState(270)
-    const [deliveryAmountPerKm, setDeliveryAmountPerKm] = useState(660) // CABA
-    const [deliveryAmountPerKmGBA, setDeliveryAmountPerKmGBA] = useState(760) // GBA
+    const [reparts, setReparts] = useState(false)
+    const [boxAmountPerBox, setBoxAmountPerBox] = useState(350)
+    const [deliveryAmountPerKm, setDeliveryAmountPerKm] = useState(250)
+    const [repartsPerBoxCABA, setRepartsPerBoxCABA] = useState(660)
+    const [repartsPerBoxGBA, setRepartsPerBoxGBA] = useState(760)
     const [resultCalc, setResultCalc] = useState(0)
     const [resultCalcGBA, setResultCalcGBA] = useState(0)
     const [viewResult, setViewResult] = useState(false)
@@ -13,14 +15,22 @@ const CalcPrice = () => {
     const onChangeSelectOption = e => {
         setViewResult(false)
         setResultCalc(0)
+        setResultCalcGBA(0)
         const option = {
             delivery: () => {
                 setFrmTranslatesOrDelivery(true)
+                setReparts(false)
                 setFrmMoving(false)
             },
             moving: () => {
                 setFrmTranslatesOrDelivery(false)
+                setReparts(false)
                 setFrmMoving(true)
+            },
+            reparts: () => {
+                setReparts(true)
+                setFrmMoving(false)
+                setFrmTranslatesOrDelivery(false)
             }
         }
         option[e.target.value]()
@@ -34,6 +44,13 @@ const CalcPrice = () => {
     handlerCalcDelivery = e => {
         const resultCalc = e.target.value * deliveryAmountPerKm
         const resultCalcGBA = e.target.value * deliveryAmountPerKmGBA
+        e.target.value.length < 1 && setViewResult(false)
+        setResultCalc(resultCalc)
+        setResultCalcGBA(resultCalcGBA)
+    },
+    handlerCalcRepart = e => {
+        const resultCalc = e.target.value * repartsPerBoxCABA,
+        resultCalcGBA = e.target.value * repartsPerBoxGBA
         e.target.value.length < 1 && setViewResult(false)
         setResultCalc(resultCalc)
         setResultCalcGBA(resultCalcGBA)
@@ -57,9 +74,10 @@ const CalcPrice = () => {
             </svg>
             <small className='d-block'>Seleccione una opción</small>
             <select onChange={onChangeSelectOption} className='form-control mb-3'>
-                <option value="" disabled selected>Seleccione una opción</option>
+                <option defaultValue={null} disabled selected>Seleccione una opción</option>
                 <option value="delivery">Traslados y delivery</option>
-                <option value="moving">Mini Fletes</option>
+                <option value="moving">Fletes</option>
+                <option value="reparts">Repartos</option>
             </select>
             {
                 frmTranslatesOrDelivery && (
@@ -87,6 +105,22 @@ const CalcPrice = () => {
                         <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
                     </form>
                     {viewResult && <p className='resultPrice text-primary'>${resultCalc} a pagar en efectivo o débito</p>}
+                    </>
+                )
+            }
+            {
+                reparts && (
+                    <>
+                    <form onSubmit={onSubmit}>
+                        <small>Esto aplica a repartos</small>
+                        <span className="calcTitle badge bg-primary">${repartsPerBoxCABA} por caja (CABA)</span>
+                        <span className="calcTitle badge bg-primary">${repartsPerBoxGBA} por caja (GBA)</span>
+                        <input onChange={handlerCalcRepart} className='form-control' type="number" name="boxs" placeholder='Ingrese cant. cajas'/>
+                        <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
+                    </form>
+                    {viewResult && <p className="resultPrice text-primary">a pagar en efectivo o débito</p>}
+                    {viewResult && <p className='resultPrice text-primary'>${resultCalc} (CABA)</p>}
+                    {viewResult && <p className='resultPrice text-primary'>${resultCalcGBA} (GBA)</p>}
                     </>
                 )
             }
