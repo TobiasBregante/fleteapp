@@ -43,8 +43,10 @@ const CalcPrice = () => {
     },
     handlerCalcDelivery = e => {
         const resultCalc = e.target.value * deliveryAmountPerKm
+        const resultCalcGBA = e.target.value * deliveryAmountPerKmGBA
         e.target.value.length < 1 && setViewResult(false)
         setResultCalc(resultCalc)
+        setResultCalcGBA(resultCalcGBA)
     },
     handlerCalcRepart = e => {
         const resultCalc = e.target.value * repartsPerBoxCABA,
@@ -82,11 +84,14 @@ const CalcPrice = () => {
                     <>
                     <form onSubmit={onSubmit}>
                         <small>Esto aplica a traslados y delivery</small>
-                        <span className="calcTitle badge bg-primary">${deliveryAmountPerKm} por Km</span>
-                        <input onChange={handlerCalcDelivery} className='form-control' type="number" name="km" placeholder='Ingrese los Km'/>
+                        <span className="calcTitle badge bg-primary">${deliveryAmountPerKm} por paquete en CABA</span>
+                    <span className='calcTitle badge bg-primary'>${deliveryAmountPerKmGBA} por paquete en GBA</span>
+                        <input onChange={handlerCalcDelivery} className='form-control' type="number" name="km" placeholder='Ingrese cant. paquetes'/>
                         <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
                     </form>
-                    {viewResult && <p className='resultPrice text-primary'>${resultCalc} a pagar en efectivo o débito</p>}
+                    {viewResult && <p className='resultPrice text-primary'>${resultCalc} (CABA)</p>}
+                    {viewResult && <p className='resultPrice text-primary'>${resultCalcGBA} (GBA)</p>}
+                    {viewResult && <p className='resultPrice text-primary'>a pagar en efectivo o débito</p>}
                     </>
                 )
             }
@@ -94,9 +99,9 @@ const CalcPrice = () => {
                 frmMoving && (
                     <>
                     <form onSubmit={onSubmit}>
-                        <small>Esto aplica a fletes</small>
-                        <span className="calcTitle badge bg-primary">${boxAmountPerBox} por caja</span>
-                        <input onChange={handlerCalcBoxAmount} className='form-control' type="number" name="boxs" placeholder='Ingrese cant. cajas'/>
+                        <small>Esto aplica a mini fletes</small>
+                        <span className="calcTitle badge bg-primary">${boxAmountPerBox} por km</span>
+                        <input onChange={handlerCalcBoxAmount} className='form-control' type="number" name="boxs" placeholder='Ingrese los km'/>
                         <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
                     </form>
                     {viewResult && <p className='resultPrice text-primary'>${resultCalc} a pagar en efectivo o débito</p>}
