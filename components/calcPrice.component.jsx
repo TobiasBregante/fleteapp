@@ -1,11 +1,11 @@
-import { useRef, useState } from "react"
+import { useState } from "react"
 
 const CalcPrice = () => {
     const [frmTranslatesOrDelivery, setFrmTranslatesOrDelivery] = useState(false)
     const [frmMoving, setFrmMoving] = useState(false)
     const [reparts, setReparts] = useState(false)
-    const [boxAmountPerBox, setBoxAmountPerBox] = useState(350)
-    const [deliveryAmountPerKm, setDeliveryAmountPerKm] = useState(250)
+    const [boxAmountPerBox, setBoxAmountPerBox] = useState(200)
+    const [deliveryAmountPerKm, setDeliveryAmountPerKm] = useState(160)
     const [repartsPerBoxCABA, setRepartsPerBoxCABA] = useState(660)
     const [repartsPerBoxGBA, setRepartsPerBoxGBA] = useState(760)
     const [resultCalc, setResultCalc] = useState(0)
@@ -76,7 +76,7 @@ const CalcPrice = () => {
             <select onChange={onChangeSelectOption} className='form-control mb-3'>
                 <option defaultValue={null} disabled selected>Seleccione una opción</option>
                 <option value="delivery">Traslados y delivery</option>
-                <option value="moving">Fletes</option>
+                <option value="moving">Mini Fletes</option>
                 <option value="reparts">Repartos</option>
             </select>
             {
@@ -84,14 +84,13 @@ const CalcPrice = () => {
                     <>
                     <form onSubmit={onSubmit}>
                         <small>Esto aplica a traslados y delivery</small>
-                        <span className="calcTitle badge bg-primary">${deliveryAmountPerKm} por paquete en CABA</span>
-                    <span className='calcTitle badge bg-primary'>${deliveryAmountPerKmGBA} por paquete en GBA</span>
-                        <input onChange={handlerCalcDelivery} className='form-control' type="number" name="km" placeholder='Ingrese cant. paquetes'/>
+                        <span className="calcTitle badge bg-primary">${deliveryAmountPerKm}/Km en CABA</span>
+                        <input onChange={handlerCalcDelivery} className='form-control' type="number" name="km" placeholder='Ingrese los km'/>
                         <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
                     </form>
-                    {viewResult && <p className='resultPrice text-primary'>${resultCalc} (CABA)</p>}
-                    {viewResult && <p className='resultPrice text-primary'>${resultCalcGBA} (GBA)</p>}
-                    {viewResult && <p className='resultPrice text-primary'>a pagar en efectivo o débito</p>}
+                    {viewResult && resultCalc > 0 && <p className='resultPrice text-primary'>${resultCalc} (CABA)</p>}
+                    {viewResult && resultCalcGBA > 0 && <p className='resultPrice text-primary'>${resultCalcGBA} (GBA)</p>}
+                    {viewResult && resultCalc > 0 && <p className='resultPrice text-primary'>a pagar en efectivo o débito</p>}
                     </>
                 )
             }
@@ -100,7 +99,7 @@ const CalcPrice = () => {
                     <>
                     <form onSubmit={onSubmit}>
                         <small>Esto aplica a mini fletes</small>
-                        <span className="calcTitle badge bg-primary">${boxAmountPerBox} por km</span>
+                        <span className="calcTitle badge bg-primary">${boxAmountPerBox}/Km</span>
                         <input onChange={handlerCalcBoxAmount} className='form-control' type="number" name="boxs" placeholder='Ingrese los km'/>
                         <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
                     </form>
@@ -113,7 +112,7 @@ const CalcPrice = () => {
                     <>
                     <form onSubmit={onSubmit}>
                         <small>Esto aplica a repartos</small>
-                        <span className="calcTitle badge bg-primary">${repartsPerBoxCABA} por caja (CABA)</span>
+                        <span className="calcTitle badge bg-primary">${repartsPerBoxCABA}/caja (CABA)</span>
                         <span className="calcTitle badge bg-primary">${repartsPerBoxGBA} por caja (GBA)</span>
                         <input onChange={handlerCalcRepart} className='form-control' type="number" name="boxs" placeholder='Ingrese cant. cajas'/>
                         <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
