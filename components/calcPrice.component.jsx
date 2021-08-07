@@ -43,8 +43,10 @@ const CalcPrice = () => {
     },
     handlerCalcDelivery = e => {
         const resultCalc = e.target.value * deliveryAmountPerKm
+        const resultCalcGBA = e.target.value * deliveryAmountPerKmGBA
         e.target.value.length < 1 && setViewResult(false)
         setResultCalc(resultCalc)
+        setResultCalcGBA(resultCalcGBA)
     },
     handlerCalcRepart = e => {
         const resultCalc = e.target.value * repartsPerBoxCABA,
