@@ -6,8 +6,8 @@ const CalcPrice = () => {
     const [reparts, setReparts] = useState(false)
     const [boxAmountPerBox, setBoxAmountPerBox] = useState(200)
     const [deliveryAmountPerKm, setDeliveryAmountPerKm] = useState(160)
-    const [repartsPerBoxCABA, setRepartsPerBoxCABA] = useState(660)
-    const [repartsPerBoxGBA, setRepartsPerBoxGBA] = useState(760)
+    const [repartsPerBoxCABA, setRepartsPerBoxCABA] = useState(450)
+    const [repartsPerBoxGBA, setRepartsPerBoxGBA] = useState(600)
     const [resultCalc, setResultCalc] = useState(0)
     const [resultCalcGBA, setResultCalcGBA] = useState(0)
     const [viewResult, setViewResult] = useState(false)
@@ -113,7 +113,7 @@ const CalcPrice = () => {
                     <form onSubmit={onSubmit}>
                         <small>Esto aplica a repartos</small>
                         <span className="calcTitle badge bg-primary">${repartsPerBoxCABA}/caja (CABA)</span>
-                        <span className="calcTitle badge bg-primary">${repartsPerBoxGBA} por caja (GBA)</span>
+                        <span className="calcTitle badge bg-primary">${repartsPerBoxGBA}/caja (GBA)</span>
                         <input onChange={handlerCalcRepart} className='form-control' type="number" name="boxs" placeholder='Ingrese cant. cajas'/>
                         <input className='d-block btn btn-warning col-12' type="submit" value="Calcular"/>
                     </form>
