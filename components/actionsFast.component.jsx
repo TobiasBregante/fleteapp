@@ -1,4 +1,39 @@
+import axios from 'axios'
+import { useEffect, useState } from 'react';
+
 const ActionsFast = () => {
+    const
+    [reparts, setReparts] = useState(false),
+    [delivery, setDelivery] = useState(false),
+    [movings, setMovings] = useState(false),
+    [transfers, setTransfers] = useState(false),
+    [latestData, setLatestData] = useState({});
+
+    const handlerViewActionButtons = async () => {
+        const data = await (await axios.get(`${process.env.SERVER_URL}/v1/state-services`,
+        {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        })).data
+        setLatestData({
+            reparts: data?.reparts,
+            delivery: data?.delivery,
+            movings: data?.movings,
+            transfers: data?.transfers
+        })
+        
+        setReparts(data?.reparts)
+        setDelivery(data?.delivery)
+        setMovings(data?.movings)
+        setTransfers(data?.transfers)
+    }
+
+    useEffect(() => {
+        handlerViewActionButtons()
+        setInterval(handlerViewActionButtons, 5000)
+    }, [])
+
     const Moving = () => {
         const questionForWhatsApp = {
             number: 5491121795837,
@@ -46,16 +81,52 @@ const ActionsFast = () => {
             </p>
             <ul className='col-12'>
                 <li>
-                    <input onClick={Moving} type='button' value='Minifletes' className='btn btn-primary'/>
+                    <button 
+                        onClick={Moving} 
+                        disabled={!movings ? true : false} 
+                        type='button' 
+                        className={`btn ${movings ? 'btn-primary' : 'btn-secondary'}`}>
+                        {
+                            !movings && <span className='badge bg-danger text-light d-block'>No disponible</span>
+                        }
+                        Minifletes
+                    </button>
                 </li>
                 <li>
-                    <input onClick={Reparts} type='button' value='Repartos' className='btn btn-danger'/>
+                    <button 
+                        onClick={Reparts} 
+                        disabled={!reparts ? true : false} 
+                        type='button' 
+                        className={`btn ${reparts ? 'btn-danger' : 'btn-secondary'}`}>
+                        {
+                            !reparts && <span className='badge bg-danger text-light d-block'>No disponible</span>
+                        }
+                        Repartos
+                    </button>
                 </li>
                 <li>
-                    <input onClick={Delivery} type='button' value='Deliverys' className='btn btn-warning'/>
+                    <button 
+                        onClick={Delivery} 
+                        disabled={!delivery ? true : false} 
+                        type='button' 
+                        className={`btn ${delivery ? 'btn-warning' : 'btn-secondary'}`}>
+                        {
+                            !delivery && <span className='badge bg-danger text-light d-block'>No disponible</span>
+                        }
+                        Deliverys
+                    </button>
                 </li>
                 <li>
-                    <input onClick={Translate} type='button' value='Traslados' className='btn btn-info'/>
+                    <button 
+                        onClick={Translate} 
+                        disabled={!transfers ? true : false} 
+                        type='button' 
+                        className={`btn ${transfers ? 'btn-info' : 'btn-secondary'}`}>
+                        {
+                            !transfers && <span className='badge bg-danger text-light d-block'>No disponible</span>
+                        }
+                        Traslados
+                    </button>
                 </li>
             </ul>
         </article>
