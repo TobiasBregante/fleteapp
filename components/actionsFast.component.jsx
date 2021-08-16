@@ -13,7 +13,7 @@ const ActionsFast = () => {
         const data = await (await axios.get(`${process.env.SERVER_URL}/v1/state-services`,
         {
             headers: {
-                'Access-Control-Allow-Origin': '*'
+                "Access-Control-Allow-Origin": process.env.CLIENT_SERVER_URL
             }
         })).data
         setLatestData({
