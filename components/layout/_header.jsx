@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const Header = () => {
+const Header = () => {    
     return(
         <>
         <header className="row">
@@ -30,6 +30,11 @@ const Header = () => {
                             <li className="nav-item">
                                 <Link href="#mesa-de-ayuda">
                                     <a className="nav-link">Mesa de ayúda</a>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link href='/dashboard'>
+                                    <a className='nav-link'>Ingresar</a>
                                 </Link>
                             </li>
                         </ul>
