@@ -21,8 +21,7 @@ const Dashboard = () => {
             },
             {
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": process.env.CLIENT_SERVER_URL
+                    "Content-Type": "application/json"
                 }
             }
         )).data
@@ -39,12 +38,7 @@ const Dashboard = () => {
     handlerChangePdw = e => setPdw(e.target.value)
 
     const handlerViewActionButtons = async () => {
-        const data = await (await axios.get(`${process.env.SERVER_URL}/v1/state-services`,
-            {
-                headers: {
-                    "Access-Control-Allow-Origin": process.env.CLIENT_SERVER_URL
-                }
-            })).data
+        const data = await (await axios.get(`${process.env.SERVER_URL}/v1/state-services`)).data
 
         setReparts(data.reparts && data.reparts)
         setDelivery(data.delivery && data.delivery)
@@ -82,8 +76,7 @@ const Dashboard = () => {
             },
             {
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": process.env.CLIENT_SERVER_URL
+                    "Content-Type": "application/json"
                 }
             }
         )).data
