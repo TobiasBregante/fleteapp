@@ -12,11 +12,9 @@ const ActionsFast = () => {
     const handlerViewActionButtons = async () => {
         const data = await (await axios.get(`${process.env.SERVER_URL}/v1/state-services`,
         {
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            "Accept": "application/json"
         })).data
         setLatestData({
             reparts: data?.reparts,
